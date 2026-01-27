@@ -149,6 +149,7 @@ The frontend defaults to `http://localhost:5173` and proxies API calls to `serve
 2. Make your changes, keeping commits scoped and conventional.
 3. Run linting/build steps locally.
 4. Submit a pull request with context, screenshots, and testing notes.
+5. Thanks !!
 
 ## 📄 License
 This project is licensed under the **ISC** License as declared in `backend/package.json`. Feel free to adapt and extend responsibly.
