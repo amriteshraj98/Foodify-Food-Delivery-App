@@ -20,7 +20,7 @@ const server = http.createServer(app);
 // yaha pe hum socket io ka instance create karenge jo ki http server ke sath jude ga taaki websocket connection ban sake 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: "https://foodify-food-delivery-app-1.onrender.com",
     credentials: true,
     methods: ["POST", "GET"],
   },
@@ -32,7 +32,7 @@ const port = process.env.PORT || 5000;
 app.use(
   cors({
     // koon koon sa website hamare bakcend ki api ko access kar skta hai
-    origin: "http://localhost:5173", // frontend url
+    origin: "https://foodify-food-delivery-app-1.onrender.com", // frontend url
     credentials: true,
   })
 );
@@ -49,3 +49,4 @@ server.listen(port, () => {
   connectDb();
   console.log(`server started at ${port}`);
 });
+
