@@ -31,8 +31,8 @@ export const signUp = async (req, res) => {
 
     const token = await genToken(user._id);
     res.cookie("token", token, {
-      secure: false, // https me true hoga
-      sameSite: "strict", // cross site request me cookie na bheje
+      secure: true, // https me true hoga
+      sameSite: "none", // cross site request me cookie na bheje
       maxAge: 7 * 24 * 60 * 60 * 1000, // cookie kab expire hoga
       httpOnly: true, // client side script se access na ho
     });
@@ -59,8 +59,8 @@ export const signIn = async (req, res) => {
 
     const token = await genToken(user._id);
     res.cookie("token", token, {
-      secure: false,
-      sameSite: "strict",
+      secure: true,
+      sameSite: "none",
       maxAge: 7 * 24 * 60 * 60 * 1000,
       httpOnly: true,
     });
@@ -152,8 +152,8 @@ export const googleAuth = async (req, res) => {
     const token = await genToken(user._id);
     // token ko cookie me bhej denge
     res.cookie("token", token, {
-      secure: false,
-      sameSite: "strict",
+      secure: true,
+      sameSite: "none",
       maxAge: 7 * 24 * 60 * 60 * 1000,
       httpOnly: true,
     });
@@ -163,3 +163,4 @@ export const googleAuth = async (req, res) => {
     return res.status(500).json(`googleAuth error ${error}`);
   }
 };
+
