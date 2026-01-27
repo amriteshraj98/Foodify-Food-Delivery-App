@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { FaUtensils } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { FaPen } from "react-icons/fa";
-import OwnerItemCard from "./ownerItemCard";
+import OwnerItemCard from "./OwnerItemCard";
 function OwnerDashboard() {
   const { myShopData } = useSelector((state) => state.owner);
   const navigate = useNavigate();
@@ -102,4 +102,5 @@ function OwnerDashboard() {
 }
 
 export default OwnerDashboard;
+
 
