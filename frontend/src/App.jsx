@@ -25,7 +25,7 @@ import { useEffect } from "react";
 import { io } from "socket.io-client";
 import { setSocket } from "./redux/userSlice";
 
-export const serverUrl = "http://localhost:8000";
+export const serverUrl = "https://foodify-food-delivery-app-8nui.onrender.com";
 function App() {
   // ye userData me current user ka data hoga jo ki redux me store hai
   // redux mein userdata hai aab usko access karne ke liye useSelector ka use karenge
