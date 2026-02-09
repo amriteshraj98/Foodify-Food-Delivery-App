@@ -37,22 +37,13 @@ function CheckOut() {
   
   const AmountWithDeliveryFee = totalAmount + deliveryFee;
 
-  // ye function tab call hoga jab hum marker ko drag karke chhodege
   const onDragEnd = (e) => {
-    // jab marker ko drag karke chhoda jata hai to ye function call hota hai
-    // e.target._latlng se hume nayi latitude aur longitude milti hai
-    // uske baad hum redux me location ko update kar dete hai
+
     const { lat, lng } = e.target._latlng;
     dispatch(setLocation({ lat, lon: lng }));
     getAddressByLatLng(lat, lng);
   };
-  // when we click on current location button then this function will be called and we will get the current location from userData and set it to redux
-  // and then we will get the address from latitude and longitude and set it to redux
-  // userData me location hoti hai jisme coordinates hote hain jisme pehla element longitude hota hai aur dusra latitude hota hai
-  // or userdata mein lat or lon kaha se aata hai? jab hum login karte hain to backend se user ka data aata hai jisme location bhi hoti hai or isko kaha se update karte hain? useUpdateLocation hook mein jisme hum navigator.geolocation se location lete hain aur backend me bhejte hain or waha se user ke data mein update ho jata hai
-  // to yahi se hume user ki current location milti hai
-  // isliye hum userData ke change hone par hi ye function call karenge
-  // ye function tab call hoga jab hum current location button pe click karenge
+
   const getCurrentLocation = () => {
     const latitude = userData.location.coordinates[1];
     const longitude = userData.location.coordinates[0];
@@ -60,12 +51,8 @@ function CheckOut() {
     getAddressByLatLng(latitude, longitude);
   };
 
-  // ye function tab call hoga jab hum marker ko drag karke chhodege
   const getAddressByLatLng = async (lat, lng) => {
     try {
-      // reverse geocoding se address milega latitude aur longitude se
-      // or usko hum redux me store kar denge
-
       const result = await axios.get(
         `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lng}&format=json&apiKey=${apiKey}`
       );
@@ -74,15 +61,9 @@ function CheckOut() {
       console.log(error);
     }
   };
-  // ye function tab call hoga jab hum search button pe click karenge
-  // isme hum addressInput ko use karenge jo user ne input me dala hai
-  // aur usse latitude aur longitude nikalenge forward geocoding se
-  // aur fir usko redux me store kar denge
+ 
   const getLatLngByAddress = async () => {
-    try {
-      // forward geocoding se latitude aur longitude milega address se
-      // or usko hum redux me store kar denge
-      
+    try { 
       const result = await axios.get(
         `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(
           addressInput
@@ -118,7 +99,7 @@ function CheckOut() {
       } else {
         const orderId = result.data.orderId;
         const razorOrder = result.data.razorOrder;
-        openRazorpayWindow(orderId, razorOrder); // ye function razorpay ka window open karega or payment karega or ye leta hai orderId and razorOrder which contains order details like amount, currency, etc.
+        openRazorpayWindow(orderId, razorOrder);  
       }
     } catch (error) {
       console.log(error);
@@ -150,11 +131,6 @@ function CheckOut() {
         }
       },
     };
-    // ye window open karega razorpay ka
-    // ye tab open hoga jab hum place order pe click karenge and payment method online select karenge
-    // isme humne handler function diya hai jo tab call hoga jab payment successful hoga
-    // isme hum backend ko payment id aur order id bhejenge taaki wo payment verify kar sake
-    // aur fir wo hume order details bhejega jisse hum redux me store kar denge aur navigate kar denge order placed page pe
     const rzp = new window.Razorpay(options);
     rzp.open();
   };
@@ -200,7 +176,7 @@ function CheckOut() {
             </button>
           </div>
           <div className="rounded-xl border overflow-hidden">
-            {/* map bnaya hai we used mapcontainer which is comes from leaflet , check doc */}
+           
             <div className="h-64 w-full flex items-center justify-center">
               
               <MapContainer
@@ -208,17 +184,14 @@ function CheckOut() {
                 center={[location?.lat, location?.lon]}
                 zoom={16}
               >
-                {/* Tilelayer se map dikhne lagega  */}
                 <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 <RecenterMap location={location} />
-                {/* Marker is used to mark your current location it lets latitude and longitude */}
                 <Marker
                   position={[location?.lat, location?.lon]}
                   draggable
-                  // on drag end event me hum function call karenge jisse location update ho jayegi
                   eventHandlers={{ dragend: onDragEnd }}
                 />
               </MapContainer>
@@ -317,3 +290,4 @@ function CheckOut() {
 }
 
 export default CheckOut;
+
