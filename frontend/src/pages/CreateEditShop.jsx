@@ -27,8 +27,7 @@ function CreateEditShop() {
   const handleImage = (e) => {
     const file = e.target.files[0]; // yaha pe file milegi
     setBackendImage(file);
-    // jo file aayi hai usko url me convert karna hoga taki usko img tag me use kar sake
-    // URL.createObjectURL(file) se file ka url mil jayega
+   
     setFrontendImage(URL.createObjectURL(file));
   };
 
@@ -36,11 +35,8 @@ function CreateEditShop() {
     e.preventDefault();
     setLoading(true);
     try {
-        // FormData ek class hoti hai js me jiska use form data ko send karne ke liye kiya jata hai
-        // form data me text ke sath sath file bhi send kar sakte hai
-        // form data me key value pair hota hai jisme key string hoti hai aur value string ya blob (file) hoti hai
+        
       const formData = new FormData();
-      // form data me key value pair add karne ke liye formData.append("key", value) ka use karte hai "name" ye wo hai jisko backend me access karna hai
       formData.append("name", name);
       formData.append("city", city);
       formData.append("state", state);
@@ -122,7 +118,7 @@ function CreateEditShop() {
                 placeholder="City"
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                 onChange={(e) => setCity(e.target.value)}
-                value={city} // yaha value currentCity ya myShopData.city se set krna hoga kyuki agar user ne location allow kr di h toh currentCity m value hogi aur agar user ne location allow nhi ki h toh myShopData m value hogi agr shop pehle se create ki hui h toh
+                value={city} 
               />
             </div>
             <div>
@@ -134,7 +130,7 @@ function CreateEditShop() {
                 placeholder="State"
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                 onChange={(e) => setState(e.target.value)}
-                value={state} // currentState ya myShopData.state
+                value={state} 
               />
             </div>
           </div>
@@ -147,7 +143,7 @@ function CreateEditShop() {
               placeholder="Enter Shop Address"
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
               onChange={(e) => setAddress(e.target.value)}
-              value={address} //  currentAddress ya myShopData.address
+              value={address} 
             />
           </div>
           <button
@@ -163,3 +159,4 @@ function CreateEditShop() {
 }
 
 export default CreateEditShop;
+
