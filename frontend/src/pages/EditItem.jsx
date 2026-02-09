@@ -67,7 +67,6 @@ function EditItem() {
     }
   };
 
-  // ye function item ko id ke basis pe get karega aur usko currentItem me set kar dega jisse jab ham edit pe click karenge toh wo item ka data jo pahle se hoga wo show ho jayega aur usko edit kar payenge
   useEffect(() => {
     const handleGetItemById = async () => {
       try {
@@ -83,8 +82,6 @@ function EditItem() {
     handleGetItemById();
   }, [itemId]);
 
-  // jab currentItem change hoga tabhi ye useEffect chalega aur uske andar jo bhi value hogi wo set ho jayegi
-  // ye kuch nhi hai jab bhi ham edit pe click karenge toh jo data pahle se hai wahi show hoga aur usko edit kar payenge 
   useEffect(() => {
     setName(currentItem?.name || "");
     setPrice(currentItem?.price || 0);
@@ -197,3 +194,4 @@ function EditItem() {
 }
 
 export default EditItem;
+
