@@ -17,7 +17,6 @@ import { socketHandler } from "./socket.js";
 const app = express();
 const server = http.createServer(app);
 
-// yaha pe hum socket io ka instance create karenge jo ki http server ke sath jude ga taaki websocket connection ban sake 
 const io = new Server(server, {
   cors: {
     origin: "https://foodify-food-delivery-app-1.onrender.com",
@@ -26,18 +25,17 @@ const io = new Server(server, {
   },
 });
 
-app.set("io", io); // taki hum is io instance ko kahi bhi use kar sake apne routes me
+app.set("io", io); 
 
 const port = process.env.PORT || 5000;
 app.use(
   cors({
-    // koon koon sa website hamare bakcend ki api ko access kar skta hai
-    origin: "https://foodify-food-delivery-app-1.onrender.com", // frontend url
+    origin: "https://foodify-food-delivery-app-1.onrender.com", 
     credentials: true,
   })
 );
-app.use(express.json()); // jo bhi data aayega usko json me convert kar dega
-app.use(cookieParser()); // cookie ko read karne ke liye
+app.use(express.json()); 
+app.use(cookieParser());
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/shop", shopRouter);
@@ -49,4 +47,5 @@ server.listen(port, () => {
   connectDb();
   console.log(`server started at ${port}`);
 });
+
 
