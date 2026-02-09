@@ -31,10 +31,10 @@ export const signUp = async (req, res) => {
 
     const token = await genToken(user._id);
     res.cookie("token", token, {
-      secure: true, // https me true hoga
-      sameSite: "none", // cross site request me cookie na bheje
-      maxAge: 7 * 24 * 60 * 60 * 1000, // cookie kab expire hoga
-      httpOnly: true, // client side script se access na ho
+      secure: true, 
+      sameSite: "none", 
+      maxAge: 7 * 24 * 60 * 60 * 1000, 
+      httpOnly: true, 
     });
 
     return res.status(201).json(user);
@@ -89,11 +89,11 @@ export const sendOtp = async (req, res) => {
     }
     const otp = Math.floor(1000 + Math.random() * 9000).toString();
     user.resetOtp = otp;
-    user.otpExpires = Date.now() + 5 * 60 * 1000; // otp 5 min ke liye valid hoga
-    user.isOtpVerified = false; // jab tak otp verify nahi ho jata tab tak false rahega
-    await user.save(); // user ko save karna hoga database me
+    user.otpExpires = Date.now() + 5 * 60 * 1000; 
+    user.isOtpVerified = false;
+    await user.save();
 
-    // otp mail kar rhe hai user ko uski mail pe otp ke saath
+    
     await sendOtpMail(email, otp);
 
     return res.status(200).json({ message: "otp sent successfully" });
@@ -109,10 +109,10 @@ export const verifyOtp = async (req, res) => {
     if (!user || user.resetOtp != otp || user.otpExpires < Date.now()) {
       return res.status(400).json({ message: "invalid/expired otp" });
     }
-    user.isOtpVerified = true; // otp verify ho chuka hai
-    user.resetOtp = undefined; // otp ko hata dena chahiye security ke liye
-    user.otpExpires = undefined; // otp ko hata dena chahiye security ke liye
-    await user.save(); // user ko save karna hoga database me
+    user.isOtpVerified = true; 
+    user.resetOtp = undefined; 
+    user.otpExpires = undefined; 
+    await user.save();
     return res.status(200).json({ message: "otp verify successfully" });
   } catch (error) {
     return res.status(500).json(`verify otp error ${error}`);
@@ -163,4 +163,5 @@ export const googleAuth = async (req, res) => {
     return res.status(500).json(`googleAuth error ${error}`);
   }
 };
+
 
