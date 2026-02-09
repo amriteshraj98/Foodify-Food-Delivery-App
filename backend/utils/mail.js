@@ -4,17 +4,15 @@ dotenv.config();
 const transporter = nodemailer.createTransport({
   service: "Gmail",
   port: 465,
-  secure: true, // true for 465, false for other ports
+  secure: true, 
   auth: {
     user: process.env.EMAIL,
     pass: process.env.PASS,
   },
 });
 
-// send mail for reset password otp yaha ham kisko bhejna hai aur kya bhejna hai jaise otp aur koon bhejega wo btate hai
 export const sendOtpMail = async (to, otp) => {
   await transporter.sendMail({
-    // this is used to send mail
     from: process.env.EMAIL,
     to,
     subject: "Reset Your Password",
@@ -30,3 +28,4 @@ export const sendDeliveryOtpMail = async (user, otp) => {
     html: `<p>Your OTP for delivery is <b>${otp}</b>. It expires in 5 minutes.</p>`,
   });
 };
+
