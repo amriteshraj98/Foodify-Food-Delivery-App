@@ -7,12 +7,9 @@ export const createEditShop = async (req, res) => {
     let image;
     if (req.file) {
       console.log(req.file);
-      // upload image to cloudinary and get the url
       image = await uploadOnCloudinary(req.file.path);
     }
-    // check if shop already exists for the user
     let shop = await Shop.findOne({ owner: req.userId });
-    // if shop does not exist create a new shop else update the existing shop
     if (!shop) {
       shop = await Shop.create({
         name,
@@ -46,7 +43,6 @@ export const createEditShop = async (req, res) => {
 
 export const getMyShop = async (req, res) => {
   try {
-    // find shop of the user
     const shop = await Shop.findOne({ owner: req.userId })
       .populate("owner")
       .populate({
@@ -65,9 +61,6 @@ export const getMyShop = async (req, res) => {
 export const getShopByCity = async (req, res) => {
   try {
     const { city } = req.params;
-
-    // case insensitive search for city using regex 
-    // for example if city is "New York" then it will match "new york", "NEW YORK", "NeW YoRk" etc.
     const shops = await Shop.find({
       city: { $regex: new RegExp(`^${city}$`, "i") },
     }).populate("items");
@@ -79,3 +72,4 @@ export const getShopByCity = async (req, res) => {
     return res.status(500).json({ message: `get shop by city error ${error}` });
   }
 };
+
