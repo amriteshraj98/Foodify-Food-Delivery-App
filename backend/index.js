@@ -19,7 +19,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://foodify-food-delivery-app-1.onrender.com",
+    origin: "https://foodify-food-delivery-app.vercel.app/",
     credentials: true,
     methods: ["POST", "GET"],
   },
@@ -30,7 +30,7 @@ app.set("io", io);
 const port = process.env.PORT || 5000;
 app.use(
   cors({
-    origin: "https://foodify-food-delivery-app-1.onrender.com", 
+    origin: "https://foodify-food-delivery-app.vercel.app/", 
     credentials: true,
   })
 );
@@ -47,5 +47,6 @@ server.listen(port, () => {
   connectDb();
   console.log(`server started at ${port}`);
 });
+
 
 
