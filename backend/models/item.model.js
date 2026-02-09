@@ -10,7 +10,6 @@ const itemSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    // item kis shop ka hai ye reference hoga
     shop: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Shop",
@@ -43,8 +42,8 @@ const itemSchema = new mongoose.Schema(
       required: true,
     },
     rating: {
-      average: { type: Number, default: 0 }, //unka average rating
-      count: { type: Number, default: 0 }, //kitno logo ne rate kiya
+      average: { type: Number, default: 0 }, 
+      count: { type: Number, default: 0 }, 
     },
   },
   { timestamps: true }
@@ -52,3 +51,4 @@ const itemSchema = new mongoose.Schema(
 
 const Item = mongoose.model("Item", itemSchema);
 export default Item;
+
