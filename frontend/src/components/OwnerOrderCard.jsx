@@ -16,14 +16,7 @@ function OwnerOrderCard({ data }) {
         { status },
         { withCredentials: true }
       );
-      // ye kyu kara hai ? taaki redux store me bhi order status update ho jaye
-      // taaki baar baar api call na karna pade 
-      // workflow kaise chal rha hai status update hone ka aur ui pe show hone ka ?
-      // jab owner order ka status change karta hai to ye api call hoti hai
-      // fir backend me order ka status update hota hai aur fir updated order wapas bhej deta hai
-      // fir hum redux store me bhi us order ka status update kar dete hain
-      // taaki ui me bhi wo change reflect ho jaye bina baar baar api call kiye 
-      // ye updateOrderStatus action sirf order ka status update karta hai
+      
       dispatch(updateOrderStatus({ orderId, shopId, status }));
       setAvailableBoys(result.data.availableBoys);
       console.log(result.data);
@@ -138,3 +131,4 @@ function OwnerOrderCard({ data }) {
 }
 
 export default OwnerOrderCard;
+
