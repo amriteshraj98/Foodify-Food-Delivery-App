@@ -37,12 +37,10 @@ const userSchema = new mongoose.Schema(
     socketId: {
       type: String,
     },
-    // ye btayega ki user online hai ya offline taaki socket connection ke hisab se pata chal jaye
     isOnline: {
       type: Boolean,
       default: false,
     },
-    // ye btayega ki user kaha kaha available hai
     location: {
       type: { type: String, enum: ["Point"], default: "Point" },
       coordinates: { type: [Number], default: [0, 0] },
@@ -55,3 +53,4 @@ userSchema.index({ location: "2dsphere" });
 
 const User = mongoose.model("User", userSchema);
 export default User;
+
