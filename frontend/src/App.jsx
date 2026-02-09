@@ -25,16 +25,9 @@ import { useEffect } from "react";
 import { io } from "socket.io-client";
 import { setSocket } from "./redux/userSlice";
 
-export const serverUrl = "https://foodify-food-delivery-app-8nui.onrender.com";
+export const serverUrl = "https://foodify-food-delivery-app-5pfd.vercel.app/";
 function App() {
-  // ye userData me current user ka data hoga jo ki redux me store hai
-  // redux mein userdata hai aab usko access karne ke liye useSelector ka use karenge
-  // useSelector ek hook hai jo ki redux store se state ko access karne ke liye use hota hai
-  // useSelector ke andar ek function pass karte hai jisme state parameter hota hai jisme pura redux store ka state hota hai
-  // state me jitne bhi slices hai unko access kar sakte hai jaise state.user, state.cart etc
-  // userSlice me jo bhi initial state hai wo state.user me milega
-  // userData ko access karne ke liye state.user.userData likhenge ya {userData} = state.user likhenge
-  // ab userData me current user ka data hoga
+
   const { userData } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   useGetCurrentUser();
@@ -46,19 +39,12 @@ function App() {
   useGetMyOrders();
 
   useEffect(() => {
-    // socket io client ka instance banaya hai 
     const socketInstance = io(serverUrl, { withCredentials: true });
     dispatch(setSocket(socketInstance));
-    // jab bhi socket connection banega tab ye function chalega
-    // aur apna identity bhej dega jisme userId hoga taaki backend ko pata chal jaye ki kaun connect hua hai
+    
     socketInstance.on("connect", () => {
       if (userData) {
-        // socketInstance.emit ka use karke hum apna identity backend ko bhej rahe hai socketInstance.emit("event name", data)
-
-        // backend me socket.on("event name", (data) => {}) ka use karke us event ko suna jata hai aur data ko receive kiya jata hai
-
-        // yaha pe hum apna userId bhej rahe hai taaki backend ko pata chal jaye ki kaun connect hua hai
-        
+    
         socketInstance.emit("identity", { userId: userData._id });
       }
     });
@@ -69,7 +55,6 @@ function App() {
 
   return (
     <Routes>
-      {/* // agar userData hai to signup aur signin page pe na jaye balki home page pe chala jaye */}
       <Route
         path="/signup"
         element={!userData ? <SignUp /> : <Navigate to={"/"} />}
