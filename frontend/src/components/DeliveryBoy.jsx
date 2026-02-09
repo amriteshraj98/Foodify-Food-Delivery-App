@@ -39,7 +39,7 @@ function DeliveryBoy() {
         socket.emit("updateLocation", {
           latitude,
           longitude,
-          userId: userData._id, // ye iss liye bheja hai taaki delivery boy ke andar bhi location change kara sake 
+          userId: userData._id, 
         });
       })),
         (error) => {
@@ -100,7 +100,7 @@ function DeliveryBoy() {
 
   useEffect(() => {
     socket.on("newAssignment", (data) => {
-      setAvailableAssignments((prev) => [...prev, data]); // pahle se jo available assignments hai wo toh rahe aur  naya bhi assignment add kar denge
+      setAvailableAssignments((prev) => [...prev, data]); 
     });
     return () => {
       socket.off("newAssignment");
@@ -323,3 +323,4 @@ function DeliveryBoy() {
 }
 
 export default DeliveryBoy;
+
