@@ -2,7 +2,7 @@ import User from "../models/user.model.js";
 
 export const getCurrentUser = async (req, res) => {
   try {
-    const userId = req.userId; // ye userId auth middleware se aa rahi hai
+    const userId = req.userId; 
     if (!userId) {
       return res.status(400).json({ message: "userId is not found" });
     }
@@ -16,9 +16,6 @@ export const getCurrentUser = async (req, res) => {
   }
 };
 
-// ye user ki location update karega jab bhi user app open karega
-// aur har 5 minute me bhi update karega
-// taaki hume user ki current location pata chalti rahe
 export const updateUserLocation = async (req, res) => {
   try {
     const { lat, lon } = req.body;
@@ -43,3 +40,4 @@ export const updateUserLocation = async (req, res) => {
       .json({ message: `update location user error ${error}` });
   }
 };
+
