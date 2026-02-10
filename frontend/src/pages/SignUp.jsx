@@ -29,7 +29,6 @@ function SignUp() {
   const handleSignUp = async () => {
     setLoading(true);
     try {
-      // ye backend ke url ko le rha hai aur usme data bhej rha hai
       const result = await axios.post(
         `${serverUrl}/api/auth/signup`,
         {
@@ -41,7 +40,6 @@ function SignUp() {
         },
         { withCredentials: true }
       );
-      // ye jo data aaya hai usko redux me store kar denge
       dispatch(setUserData(result.data));
       setErr("");
       setLoading(false);
@@ -55,10 +53,9 @@ function SignUp() {
     if (!mobile) {
       return setErr("mobile no is required");
     }
-    const provider = new GoogleAuthProvider(); // ye google se authentication ke liye hai
-    const result = await signInWithPopup(auth, provider); // ye popup me google ka sign in page khol dega
+    const provider = new GoogleAuthProvider(); 
+    const result = await signInWithPopup(auth, provider); 
     try {
-      // ye backend ke url ko le rha hai aur usme data bhej rha hai
       const { data } = await axios.post(
         `${serverUrl}/api/auth/google-auth`,
         {
@@ -69,9 +66,7 @@ function SignUp() {
         },
         { withCredentials: true }
       );
-      // ye jo data aaya hai usko redux me store kar denge
-      // data me user ka data hoga jo ki backend se aaya hai
-      // redux me state ke andar data store karne ke liye dispatch ka use karte hai
+     
       dispatch(setUserData(data));
     } catch (error) {
       console.log(error);
@@ -166,7 +161,6 @@ function SignUp() {
             Password
           </label>
           <div className="relative">
-            {/*  jab showPassword true hoga tab text me convert kar de warna password me yani (*****) isme  */}
             <input
               type={`${showPassword ? "text" : "password"}`}
               className="w-full border rounded-lg px-3 py-2 focus:outline-none pr-10"
@@ -177,7 +171,6 @@ function SignUp() {
               required
             />
 
-            {/* jab click kare icon pe  */}
             <button
               className="absolute right-3 cursor-pointer top-[14px] text-gray-500"
               onClick={() => setShowPassword((prev) => !prev)}
@@ -186,7 +179,6 @@ function SignUp() {
             </button>
           </div>
         </div>
-        {/* role*/}
 
         <div className="mb-4">
           <label
@@ -244,3 +236,4 @@ function SignUp() {
 }
 
 export default SignUp;
+
