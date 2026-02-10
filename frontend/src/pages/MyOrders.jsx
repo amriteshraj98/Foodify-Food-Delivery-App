@@ -15,30 +15,20 @@ function MyOrders() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
-    // jab bhi socket me "newOrder" event aayega tab ye function chalega
-    // aur data me wo order ka data aayega jo ki backend se bheja gaya hai
-    // fir hum us order ko redux store me add kar denge taaki ui me wo show ho jaye bina page refresh kiye
     socket?.on("newOrder", (data) => {
-      // ye check kar rahe hai ki jo order aaya hai uska owner ka id current user ke id ke barabar hai ya nahi
-      // taaki sirf apne orders hi show kare na ki sabke orders
-      // ye isliye kar rahe hai kyuki socket connection sabke liye hota hai
-      // aur jab bhi koi naya order aayega to sabke paas wo order ka data chala jayega
-      // isliye ye check karna jaruri hai ki jo order aaya hai uska owner ka id current user ke id ke barabar hai ya nahi
-      // ye check kyu kar rhe hai ? taaki sirf apne orders hi show kare na ki sabke orders , show kaha karna hai ? MyOrders page me user ke liye ya owner ke liye ? kisko show karna hai ? current logged in user ko  
       if (data.shopOrders?.owner._id == userData._id) {
         dispatch(setMyOrders([data, ...myOrders]));
       }
     });
 
     socket?.on("update-status", ({ orderId, shopId, status, userId }) => {
-      // ye jo userId aayi hai kya ye hamare userdata ke id ke barabar hai ya nahi taaki sirf apne orders ka status hi update kare na ki sabke orders ka status update kare
       if (userId == userData._id) {
         dispatch(updateRealtimeOrderStatus({ orderId, shopId, status }));
       }
     });
 
     return () => {
-      socket?.off("newOrder"); // jab bhi component unmount ho jaye to ye event listener hata dega
+      socket?.off("newOrder"); 
       socket?.off("update-status");
     };
   }, [socket]);
@@ -67,3 +57,4 @@ function MyOrders() {
 }
 
 export default MyOrders;
+
