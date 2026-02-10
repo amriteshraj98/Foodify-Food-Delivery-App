@@ -16,7 +16,6 @@ const userSlice = createSlice({
     socket: null,
   },
   reducers: {
-    // state is initial state and action is jo bhi data bheja jayega or action.payload me data hoga jo bhi frontend se bheja jayega
     setUserData: (state, action) => {
       state.userData = action.payload;
     },
@@ -40,16 +39,14 @@ const userSlice = createSlice({
     },
     addToCart: (state, action) => {
       const cartItem = action.payload;
-      // agar item already cart me hai to uski quantity badha denge
-      // agar item cart me nhi hai to usko cart me add kar denge
+      
       const existingItem = state.cartItems.find((i) => i.id == cartItem.id);
       if (existingItem) {
         existingItem.quantity += cartItem.quantity;
       } else {
         state.cartItems.push(cartItem);
       }
-      // cartItems me jo bhi item hai uske price*quantity ka total nikal ke totalAmount me store kar denge
-      // sum is initial value 0 se start hoga aur har item ke price*quantity ko sum me add karte jayenge
+   
       state.totalAmount = state.cartItems.reduce(
         (sum, i) => sum + i.price * i.quantity,
         0
@@ -66,8 +63,7 @@ const userSlice = createSlice({
       if (item) {
         item.quantity = quantity;
       }
-      // total amount ko bhi update kar denge jab quantity update ho
-      // sum is initial value 0 se start hoga aur har item ke price*quantity ko sum me add karte jayenge
+      
       state.totalAmount = state.cartItems.reduce(
         (sum, i) => sum + i.price * i.quantity,
         0
@@ -75,8 +71,7 @@ const userSlice = createSlice({
     },
 
     removeCartItem: (state, action) => {
-      // action.payload me item id hoga jisko remove karna hai
-      // item aayega aur item ke id ko action.payload se compare karenge aur jiska id match nahi karega usko hi naya array me rakhenge
+    
       state.cartItems = state.cartItems.filter((i) => i.id !== action.payload);
       state.totalAmount = state.cartItems.reduce(
         (sum, i) => sum + i.price * i.quantity,
@@ -94,10 +89,7 @@ const userSlice = createSlice({
 
     updateOrderStatus: (state, action) => {
       const { orderId, shopId, status } = action.payload;
-      // order ko find karenge jiska id orderId ke barabar ho
-      // fir us order ke shopOrders me se wo shopOrder find karenge jiska shopId match kare
-      // fir us shopOrder ka status update kar denge
-      // current function se hum current state ko dekh sakte hain debugging ke liye
+      
       const order = state.myOrders.find((o) => o._id == orderId);
       if (order) {
         if (order.shopOrders && order.shopOrders.shop._id == shopId) {
@@ -105,19 +97,14 @@ const userSlice = createSlice({
         }
       }
     },
-    // ye action tab chalega jab backend se "update-status" event aayega
-    // aur isme hum order status ko realtime me update karenge bina page refresh kiye
+  
     updateRealtimeOrderStatus: (state, action) => {
-      // orderId, shopId, status, userId ye sab action.payload me hoga jo ki backend se aayega jab bhi order status update hoga
       const { orderId, shopId, status } = action.payload;
 
-      // order ko find karenge jiska id orderId ke barabar ho
       const order = state.myOrders.find((o) => o._id == orderId);
       if (order) {
-        // aab shoporder find karenge wo shoporder find karenge jis shopOrder ke andar jo shop hai uski id aur jo shopId yaha pe aayi hai wo barabar hai
         const shopOrder = order.shopOrders.find((so) => so.shop._id == shopId);
         if (shopOrder) {
-          // fir us shopOrder ka status update kar denge
           shopOrder.status = status;
         }
       }
@@ -148,3 +135,4 @@ export const {
   updateRealtimeOrderStatus,
 } = userSlice.actions;
 export default userSlice.reducer;
+
